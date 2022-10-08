@@ -3,10 +3,8 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#include <chrono>
 
 using namespace std;
-using namespace std::chrono;
 
 /*
         Need to find the gamma rate and epsilon rate of the binary numbers
@@ -115,7 +113,6 @@ int main()
             //resetting temp to be equal back to the binary string to not manipulate our control
             temp = binaryString;
 
-
             //populating the rest matrix row backwards
             double remainder = 0;
             for (int i = BINARYSIZE - 1; i >= (BINARYSIZE - binaryLength); --i) {
@@ -127,7 +124,6 @@ int main()
 
             //increasing our row position
             ++matrixRow;
-            //cout << "row: " << matrixRow << endl;
         }
 
         myFile.close();
@@ -167,7 +163,6 @@ int main()
             epsilonRate += (1 * pow(10, ((BINARYSIZE - 1) - i)));
         }
     }
-    auto stop = high_resolution_clock::now();
 
     cout << "GammaRate: " << gammaRate << " EpsilonRate: " << epsilonRate << endl;
     int gammaDecimal = binaryToDecimal(gammaRate);
@@ -251,13 +246,13 @@ int main()
     }
 
     //3.
-
     for (int i = 1; i <= 10; ++i) {
         //reset onesCounter
         onesCounter = 0;
         positionInMatrix = 0;
 
-        for (int j = 0; j < rowNumbersForCommon.size(); ++j) {      //finding the common digit through ones
+        //finding the common digit through ones
+        for (int j = 0; j < rowNumbersForCommon.size(); ++j) {  
             positionInMatrix = rowNumbersForCommon.at(j);
             if (matrix[positionInMatrix][i] == 1) {
                 ++onesCounter;
@@ -274,7 +269,8 @@ int main()
             rounding = rowNumbersForCommon.size();
         }
 
-        if (onesCounter > rounding / 2) {      //seeing if the common digit is 1 or 0
+         //seeing if the common digit is 1 or 0
+        if (onesCounter > rounding / 2) {
             commonDigit = 1;
         }
         else {
@@ -282,14 +278,16 @@ int main()
         }
 
         cout << "Most commonDigit: " << commonDigit << " Current column: " << i << endl;
-        for (int j = 0; j < rowNumbersForCommon.size(); ++j) {             //iteration through the recorded common values
+
+        //iteration through the recorded common values
+        for (int j = 0; j < rowNumbersForCommon.size(); ++j) {
             positionInMatrix = rowNumbersForCommon.at(j);
 
-            if (matrix[positionInMatrix][i] == commonDigit) {     //if the value is common, keep it, if not pop out.
-
+            //if the value is common, keep it, if not pop out.
+            if (matrix[positionInMatrix][i] == commonDigit) {  
+                //do nothing
             }
             else {
-
                 rowNumbersForCommon.erase(rowNumbersForCommon.begin() + j);
                 --j;
             }
@@ -333,6 +331,7 @@ int main()
             oxygenRating = temp;
         }
     }
+
     int oxygenRatingDecimal = binaryToDecimal(oxygenRating);
     cout << "OxygenRating: " << oxygenRatingDecimal << endl;
 
@@ -366,7 +365,8 @@ int main()
         onesCounter = 0;
         positionInMatrix = 0;
 
-        for (int j = 0; j < rowNumbersForLeast.size(); ++j) {      //finding the common digit through ones
+        //finding the common digit through ones
+        for (int j = 0; j < rowNumbersForLeast.size(); ++j) {     
             positionInMatrix = rowNumbersForLeast.at(j);
 
             if (matrix[positionInMatrix][i] == 1) {
@@ -384,7 +384,8 @@ int main()
             rounding = rowNumbersForLeast.size();
         }
 
-        if (onesCounter < (rounding / 2)) {      //seeing if the common digit is 1 or 0
+        //seeing if the common digit is 1 or 0
+        if (onesCounter < (rounding / 2)) { 
             leastcommonDigit = 1;
         }
         else {
@@ -393,10 +394,12 @@ int main()
 
         cout << "least commonDigit: " << leastcommonDigit << " Current column: " << i << " onesCounter: " << onesCounter << " listSize:" << rowNumbersForLeast.size() << endl;
 
-        for (int j = 0; j < rowNumbersForLeast.size(); ++j) {             //iteration through the recorded values
+         //iteration through the recorded values
+        for (int j = 0; j < rowNumbersForLeast.size(); ++j) {
             positionInMatrix = rowNumbersForLeast.at(j);
 
-            if (matrix[positionInMatrix][i] == leastcommonDigit) {     //if the value is the uncommon, keep it, if not pop out.
+             //if the value is the uncommon, keep it, if not pop out.
+            if (matrix[positionInMatrix][i] == leastcommonDigit) {
 
             }
             else {
@@ -423,7 +426,7 @@ int main()
         cout << endl;
     }
 
-    //comparing the final two
+    //comparing the final two (or with our input there is only 1)
     for (unsigned i = 0; i < rowNumbersForLeast.size(); ++i) {
         temp = 0;
 
@@ -445,7 +448,6 @@ int main()
 
     int co2RatingDecimal = binaryToDecimal(co2Rating);
     cout << "co2Rating: " << co2RatingDecimal << endl;
-
     cout << "Life Support rating: " << (co2RatingDecimal * oxygenRatingDecimal) << endl;
 
     return 0;
